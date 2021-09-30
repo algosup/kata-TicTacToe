@@ -33,6 +33,44 @@ namespace KataTicTacToeTest
             Assert.AreEqual(true, result);
         }
 
+        [Test]
+        public void Should_return_alternated_tokens()
+        {
+            //Act
+            var game = new TicTacToeGame(3, Token.X);
+            Token token1 = game.GetCurrentToken();
+            game.Play(0, 0);
+            Token token2 = game.GetCurrentToken();
+
+            //Assert
+            Assert.AreNotEqual(token1,token2);
+            Assert.AreEqual(Token.X,token1);
+            Assert.AreEqual(Token.O,token2);
+        }
+
+        [Test]
+        public void Should_return_player1_when_game_did_not_start()
+        {
+            //Act
+            var game = new TicTacToeGame(3, Token.X);
+            Player currentPlayer = game.GetCurrentPlayer();
+            
+            //Assert
+            Assert.AreEqual(Player.Player1, currentPlayer);
+        }
+
+        [TestCase(Token.X, Player.Player2)]
+        [TestCase(Token.O, Player.Player2)]
+        public void Should_return_player2_when_player1_did_play(Token startToken, Player expectedResult)
+        {
+            //Act
+            var game = new TicTacToeGame(3, startToken);
+            game.Play(0, 0);
+            Player currentPlayer = game.GetCurrentPlayer();
+
+            //Assert
+            Assert.AreEqual(expectedResult, currentPlayer);
+        }
 
     }
 }

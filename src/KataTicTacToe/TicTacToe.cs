@@ -2,36 +2,59 @@
 
 namespace KataTicTacToe
 {
+    public enum Player
+    {
+        Player1,
+        Player2
+    }
 
-        public enum Token
+    public enum Token
+    {
+        Empty,
+        X,
+        O
+    }
+
+    public class TicTacToeGame
+    {
+        private int _size;
+        private Token _currentToken;
+        private Token FirstToken { get; }
+        private Token[,] Grid { get; }
+
+        public TicTacToeGame(int size, Token firstToken)
         {
-            Empty,
-            X,
-            O
-            
+            _size = size;
+            FirstToken = firstToken;
+            _currentToken = firstToken;
+            Grid = new Token[size, size];
         }
-
-        public class TicTacToeGame
-        {
-            private int _size;
-            private Token _token;
-            private Token[,] _grid;
-
-            public TicTacToeGame(int size, Token token)
-            {
-                _size = size;
-                _token = token;
-                _grid = new Token[size,size];
-            }
 
         public bool Play(int x, int y)
         {
-            var isplacable  = _grid[x, y] == Token.Empty;
-            if (isplacable) 
-                _grid[x, y] = _token;
-            return isplacable;
+            var canPlay = Grid[x, y] == Token.Empty;
+            if (canPlay)
+            {
+                Grid[x, y] = _currentToken;
+                AlternateToken();
+            }
 
+            return canPlay;
+        }
 
+        private void AlternateToken()
+        {
+            _currentToken = _currentToken == Token.X ? Token.O : Token.X;
+        }
+
+        public Token GetCurrentToken()
+        {
+            return _currentToken;
+        }
+
+        public Player GetCurrentPlayer()
+        {
+            return _currentToken == FirstToken ? Player.Player1 : Player.Player2;
         }
     }
 
