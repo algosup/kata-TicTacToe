@@ -56,6 +56,31 @@ namespace KataTicTacToe
         {
             return _currentToken == FirstToken ? Player.Player1 : Player.Player2;
         }
+
+        public bool IsWinner(Player player)
+        {
+            var result = true;
+            Token playerToken;
+            if (player == Player.Player1)
+                playerToken = FirstToken;
+            else
+                playerToken = GetOppositeToken(FirstToken);
+
+            for (var i = 0; i < _size; i++)
+            {
+                    result = result && (playerToken == Grid[0, i]);
+            }
+
+            return result;
+        }
+
+        private Token GetOppositeToken(Token token)
+        {
+            if (token == Token.X)
+                return Token.O;
+            else
+                return Token.X;
+        }
     }
 
 }

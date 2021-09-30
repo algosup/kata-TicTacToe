@@ -72,5 +72,30 @@ namespace KataTicTacToeTest
             Assert.AreEqual(expectedResult, currentPlayer);
         }
 
+        [Test]
+        public void Should_return_win_when_3_in_a_row()
+        {
+            var game = new TicTacToeGame(3, Token.X);
+            game.Play(0, 0);//player1
+            game.Play(1,1 );//player2
+            game.Play(0, 1);//player1
+            game.Play(1, 2);//player2
+            game.Play(0, 2);//player1
+
+            bool isWinner = game.IsWinner(Player.Player1);
+            Assert.IsTrue(isWinner);
+        }
+        [Test]
+        public void Should_return_loose_when_not_3_in_a_row()
+        {
+            var game = new TicTacToeGame(3, Token.X);
+            game.Play(0, 0);//player1
+            game.Play(0, 1);//player2
+            game.Play(0, 2);//player1
+
+            bool isWinner = game.IsWinner(Player.Player1);
+            Assert.IsFalse(isWinner);
+        }
+
     }
 }
