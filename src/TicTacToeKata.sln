@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KataTicTacToe", "KataTicTacToe\KataTicTacToe.csproj", "{66BBD5EB-49D7-4D57-B105-B58E29F32452}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KataTicTacToeTest", "KataTicTacToeTest\KataTicTacToeTest.csproj", "{E79250D3-6244-4FCA-94F8-8CB03DBE75DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66BBD5EB-49D7-4D57-B105-B58E29F32452}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66BBD5EB-49D7-4D57-B105-B58E29F32452}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66BBD5EB-49D7-4D57-B105-B58E29F32452}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66BBD5EB-49D7-4D57-B105-B58E29F32452}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E79250D3-6244-4FCA-94F8-8CB03DBE75DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E79250D3-6244-4FCA-94F8-8CB03DBE75DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E79250D3-6244-4FCA-94F8-8CB03DBE75DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E79250D3-6244-4FCA-94F8-8CB03DBE75DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
