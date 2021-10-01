@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace KataTicTacToe
 {
     public enum Player
@@ -17,7 +16,7 @@ namespace KataTicTacToe
 
     public class TicTacToeGame
     {
-        private int _size;
+        private readonly int _size;
         private Token _currentToken;
         private Token FirstToken { get; }
         private Token[,] Grid { get; }
@@ -57,30 +56,71 @@ namespace KataTicTacToe
             return _currentToken == FirstToken ? Player.Player1 : Player.Player2;
         }
 
-        public bool IsWinner(Player player)
+        public bool IsWin()
         {
-            var result = true;
-            Token playerToken;
-            if (player == Player.Player1)
-                playerToken = FirstToken;
-            else
-                playerToken = GetOppositeToken(FirstToken);
 
+            Token previousToken = GetOppositeToken(_currentToken);
+            var result = false;
             for (var i = 0; i < _size; i++)
             {
-                    result = result && (playerToken == Grid[0, i]);
+                result |= CheckRow(previousToken, i);
+                result |= CheckColumn(previousToken, i);
+                
             }
+            result |= CheckDiagonal(previousToken);
+            result |= CheckAntiDiagonal(previousToken);
 
             return result;
         }
 
-        private Token GetOppositeToken(Token token)
+        private bool CheckColumn(Token token, int columnNumber)
         {
-            if (token == Token.X)
-                return Token.O;
-            else
-                return Token.X;
+            for (var i = 0; i < _size; i++)
+            {
+                if (Grid[i, columnNumber] != token)
+                    return false;
+            }
+
+            return true;
         }
+
+        private bool CheckRow(Token token, int rowNumber)
+        {
+            for (var i = 0; i < _size; i++)
+            {
+                if (Grid[rowNumber, i] != token)
+                    return false;
+            }
+
+            return true;
+        }
+
+        private bool CheckDiagonal(Token token)
+        {
+            for (var i = 0; i < _size; i++)
+            {
+                if (Grid[i, i] != token)
+                    return false;
+            }
+
+            return true;
+        }
+
+        private static Token GetOppositeToken(Token token)
+        {
+            return token == Token.X ? Token.O : Token.X;
+        }
+        private bool CheckAntiDiagonal(Token token)
+        {
+            for (var i = 0; i < _size; i++)
+            {
+                if (Grid[i, _size - 1 - i] != token)
+                    return false;
+            }
+
+            return true;
+        }
+
     }
 
 }

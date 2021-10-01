@@ -72,19 +72,42 @@ namespace KataTicTacToeTest
             Assert.AreEqual(expectedResult, currentPlayer);
         }
 
-        [Test]
-        public void Should_return_win_when_3_in_a_row()
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        public void Should_return_win_when_3_in_a_row(int rowNumber)
         {
-            var game = new TicTacToeGame(3, Token.X);
-            game.Play(0, 0);//player1
-            game.Play(1,1 );//player2
-            game.Play(0, 1);//player1
-            game.Play(1, 2);//player2
-            game.Play(0, 2);//player1
+            var size = 3;
+            var player2RowNumber = (rowNumber + 1)% size;
+            var game = new TicTacToeGame(size, Token.X);
+            game.Play(rowNumber, 0);//player1
+            game.Play(player2RowNumber, 1 );//player2
+            game.Play(rowNumber, 1);//player1
+            game.Play(player2RowNumber, 2);//player2
+            game.Play(rowNumber, 2);//player1
 
-            bool isWinner = game.IsWinner(Player.Player1);
+            bool isWinner = game.IsWin();
             Assert.IsTrue(isWinner);
         }
+
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        public void Should_return_win_when_3_in_a_column(int columnNumber)
+        {
+            var size = 3;
+            var player2ColumnNumber = (columnNumber + 1) % size;
+            var game = new TicTacToeGame(size, Token.X);
+            game.Play(0, columnNumber);//player1
+            game.Play(1, player2ColumnNumber);//player2
+            game.Play(1, columnNumber);//player1
+            game.Play(2, player2ColumnNumber);//player2
+            game.Play(2, columnNumber);//player1
+
+            bool isWinner = game.IsWin();
+            Assert.IsTrue(isWinner);
+        }
+
         [Test]
         public void Should_return_loose_when_not_3_in_a_row()
         {
@@ -93,8 +116,44 @@ namespace KataTicTacToeTest
             game.Play(0, 1);//player2
             game.Play(0, 2);//player1
 
-            bool isWinner = game.IsWinner(Player.Player1);
+            bool isWinner = game.IsWin();
             Assert.IsFalse(isWinner);
+        }
+
+        [Test]
+        public void Should_return_win_when_3_in_a_diagonal()
+        {
+            var game = new TicTacToeGame(3, Token.X);
+            game.Play(0, 0);//player1
+            game.Play(0, 1);//player2
+            game.Play(1, 1);//player1
+            game.Play(0, 2);//player2
+            game.Play(2, 2);//player1
+
+            bool isWinner = game.IsWin();
+            Assert.IsTrue(isWinner);
+        }
+        [Test]
+        public void Should_return_loose_when_not_3_in_a_diagonal()
+        {
+            var game = new TicTacToeGame(3, Token.X);
+            game.Play(0, 0);//player1
+
+            bool isWinner = game.IsWin();
+            Assert.IsFalse(isWinner);
+        }
+        [Test]
+        public void Should_return_win_when_3_in_a_antidiagonal()
+        {
+            var game = new TicTacToeGame(3, Token.X);
+            game.Play(0, 2);//player1
+            game.Play(0, 0);//player2
+            game.Play(1, 1);//player1
+            game.Play(0, 1);//player2
+            game.Play(2, 0);//player1
+
+            bool isWinner = game.IsWin();
+            Assert.IsTrue(isWinner);
         }
 
     }
