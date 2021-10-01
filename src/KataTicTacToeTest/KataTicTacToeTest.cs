@@ -1,3 +1,7 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
 using NUnit.Framework;
 using KataTicTacToe;
 
@@ -156,5 +160,46 @@ namespace KataTicTacToeTest
             Assert.IsTrue(isWinner);
         }
 
+
+        [TestCaseSource(nameof(ReadPlayerInput))]
+        public void Should_read_player_value_and_call_gameplay(string line, (int,int) expectedPlay)
+        {
+            var gameManager = new GameManager();
+            (int, int) result = gameManager.ParseInput(line);
+            Assert.AreEqual(expectedPlay, result);
+        }
+
+        public static IEnumerable ReadPlayerInput
+        {
+            get
+            {
+                yield return new TestCaseData("0, 0", (0, 0));
+                yield return new TestCaseData(" 1 , 1 ", (1, 1));
+                yield return new TestCaseData(" 5 , -2 ", (5, -2));
+            }
+        }
+        [TestCase("5")]
+        [TestCase(",")]
+        [TestCase("9,")]
+        public void Should_throw_exception_when_input_is_incorrect(string line)
+        {
+            var gameManager = new GameManager();
+            var ex = Assert.Throws<Exception>(() => gameManager.ParseInput(line));
+            Assert.That(ex.Message, Is.EqualTo("Input is incorrect"));
+        }
+        [Test]
+        public void Should_display_the_first_line()
+        {
+            var gameManager = new GameManager();
+            TicTacToeGame game = gameManager.InitGame(3, Token.X);
+            
+            gameManager.ReadInput("0, 0");//player1
+            gameManager.ReadInput("0, 1");//player2
+            gameManager.ReadInput("0, 2");//player1
+            string output = gameManager.ShowLine(0);
+
+            Assert.AreEqual("X, O, X", output);
+
+        }
     }
 }

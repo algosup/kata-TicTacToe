@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace KataTicTacToe
 {
     public enum Player
@@ -16,10 +18,12 @@ namespace KataTicTacToe
 
     public class TicTacToeGame
     {
-        private readonly int _size;
+        public int _size { get; }
         private Token _currentToken;
         private Token FirstToken { get; }
-        private Token[,] Grid { get; }
+        public Token[,] Grid { get; }
+
+
 
         public TicTacToeGame(int size, Token firstToken)
         {
@@ -121,6 +125,24 @@ namespace KataTicTacToe
             return true;
         }
 
+
+        // Human-machine interface
+        public void Display()
+        {
+            Console.Out.WriteLine();
+            for (int i = 0; i < _size; i++)
+            {
+                string line = "";
+                for (int j = 0; j < _size; j++)
+                {
+                    line += Grid[j, i].ToString();
+                }
+
+                Console.Out.WriteLine(line);
+            }
+        }
+
+        
     }
 
 }
